@@ -9,6 +9,52 @@ import {
   convertTemp 
 } from '../utils/Helpers';
 
+// Weather tips function to return appropriate tips based on weather conditions
+const getWeatherTips = (weatherData) => {
+  const { main, weather, wind } = weatherData;
+  const condition = weather[0].main.toLowerCase();
+  const temp = main.temp;
+  const windSpeed = wind.speed;
+  
+  // Tips based on weather conditions
+  if (condition.includes('rain') || condition.includes('drizzle')) {
+    return "Don't forget your umbrella and waterproof shoes. Consider waterproof clothing if the rain is heavy.";
+  } else if (condition.includes('thunderstorm')) {
+    return "Stay indoors if possible. Avoid open areas and tall structures when outside. Keep electronics unplugged.";
+  } else if (condition.includes('snow')) {
+    return "Dress in warm layers and wear winter boots. Allow extra time for travel and drive carefully on slippery roads.";
+  } else if (condition.includes('mist') || condition.includes('fog')) {
+    return "Drive with fog lights on and reduce speed when traveling. Allow extra time for your journey.";
+  } else if (condition.includes('clear')) {
+    if (temp > 30) { // Hot day
+      return "Stay hydrated and wear sunscreen. Seek shade during peak sun hours and wear light clothing.";
+    } else if (temp < 10) { // Cold clear day
+      return "Dress warmly in layers. The clear sky might make it feel colder than it is.";
+    } else {
+      return "Great weather for outdoor activities! Consider taking advantage of the clear skies.";
+    }
+  } else if (condition.includes('cloud')) {
+    return "The sun might peek through occasionally, so having sunglasses handy could be useful.";
+  } else if (condition.includes('dust') || condition.includes('sand')) {
+    return "Wear a mask or face covering to protect your respiratory system. Keep windows closed.";
+  }
+  
+  // Tips based on temperature ranges
+  if (temp > 35) {
+    return "Extreme heat alert! Stay hydrated, avoid strenuous activities, and seek air-conditioned places.";
+  } else if (temp < 0) {
+    return "Freezing temperatures! Bundle up with warm layers and protect extremities. Be cautious of ice.";
+  }
+  
+  // Tips based on wind conditions
+  if (windSpeed > 20) {
+    return "Strong winds expected. Secure loose outdoor items and be cautious when driving, especially in high-profile vehicles.";
+  }
+  
+  // Default tip
+  return "Check local forecasts for weather changes throughout the day.";
+};
+
 const CurrentWeather = ({ data, units }) => {
   const [mounted, setMounted] = useState(false);
   
@@ -42,6 +88,9 @@ const CurrentWeather = ({ data, units }) => {
   const feelsLike = Math.round(convertTemp(main.feels_like, 'metric', units));
   const tempMin = Math.round(convertTemp(main.temp_min, 'metric', units));
   const tempMax = Math.round(convertTemp(main.temp_max, 'metric', units));
+
+  // Get weather tips
+  const weatherTip = getWeatherTips(data);
 
   return (
     <motion.div 
@@ -244,6 +293,35 @@ const CurrentWeather = ({ data, units }) => {
             }}>{item.value}</span>
           </motion.div>
         ))}
+      </motion.div>
+
+      {/* Weather Tip Section */}
+      <motion.div
+        initial={{ opacity: 0, y: 15 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ delay: 1.2, duration: 0.5 }}
+        style={{
+          marginTop: '25px',
+          padding: '16px 20px',
+          borderRadius: '14px',
+          background: 'rgba(255, 255, 255, 0.1)',
+          backdropFilter: 'blur(8px)',
+          zIndex: 1,
+          position: 'relative',
+          display: 'flex',
+          alignItems: 'center',
+          gap: '12px'
+        }}
+      >
+        <span role="img" aria-label="tip" style={{ fontSize: '1.5em' }}>💡</span>
+        <p style={{ 
+          margin: '0',
+          fontSize: '1rem',
+          fontWeight: '500',
+          lineHeight: '1.4'
+        }}>
+          <strong>Weather Tip:</strong> {weatherTip}
+        </p>
       </motion.div>
 
       <motion.div 
