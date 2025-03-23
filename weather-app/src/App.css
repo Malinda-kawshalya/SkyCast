@@ -1,289 +1,72 @@
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
-
-body {
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  color: white;
-}
+/* Add these styles to your App.css file */
 
 .App {
-  min-height: 100vh;
-  padding: 2rem 0;
+  font-family: 'Inter', 'Roboto', sans-serif;
+  color: white;
+  text-align: center;
 }
 
 .container {
-  max-width: 800px;
+  max-width: 1200px;
   margin: 0 auto;
-  padding: 0 1rem;
+  padding: 2rem;
 }
 
-h1 {
-  text-align: center;
+.app-title {
+  font-size: 3rem;
+  font-weight: 700;
   margin-bottom: 2rem;
-  font-weight: 300;
-  font-size: 2.5rem;
+  text-shadow: 0 2px 15px rgba(0, 0, 0, 0.3);
+  letter-spacing: -0.5px;
 }
 
-/* Search & Controls */
+.glass-panel {
+  background: rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(10px);
+  border-radius: 16px;
+  padding: 1.5rem;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  margin-bottom: 2rem;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.glass-panel:hover {
+  box-shadow: 0 12px 48px rgba(0, 0, 0, 0.15);
+}
+
 .controls {
   display: flex;
+  flex-wrap: wrap;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 2rem;
-  flex-wrap: wrap;
   gap: 1rem;
 }
 
-.search-container {
-  display: flex;
-  gap: 0.5rem;
-  flex-wrap: wrap;
-}
-
-form {
-  display: flex;
-  gap: 0.5rem;
-}
-
-.search-input {
-  padding: 0.75rem;
-  border-radius: 4px;
-  border: none;
-  min-width: 200px;
-  font-size: 1rem;
-}
-
-.search-button, .location-button {
-  padding: 0.75rem 1rem;
-  border-radius: 4px;
-  border: none;
-  background-color: rgba(255, 255, 255, 0.2);
-  color: white;
-  cursor: pointer;
-  transition: background-color 0.3s;
-  font-size: 1rem;
-}
-
-.search-button:hover, .location-button:hover {
-  background-color: rgba(255, 255, 255, 0.3);
-}
-
-/* Toggle Switch */
-.toggle-container {
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-}
-
-.switch {
-  position: relative;
-  display: inline-block;
-  width: 60px;
-  height: 34px;
-}
-
-.switch input {
-  opacity: 0;
-  width: 0;
-  height: 0;
-}
-
-.slider {
-  position: absolute;
-  cursor: pointer;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background-color: rgba(255, 255, 255, 0.2);
-  transition: .3s;
-}
-
-.slider:before {
-  position: absolute;
-  content: "";
-  height: 26px;
-  width: 26px;
-  left: 4px;
-  bottom: 4px;
-  background-color: white;
-  transition: .3s;
-}
-
-input:checked + .slider {
-  background-color: rgba(255, 255, 255, 0.4);
-}
-
-input:checked + .slider:before {
-  transform: translateX(26px);
-}
-
-.slider.round {
-  border-radius: 34px;
-}
-
-.slider.round:before {
-  border-radius: 50%;
-}
-
-.active {
-  font-weight: bold;
-}
-
-/* Current Weather */
-.current-weather {
-  background-color: rgba(255, 255, 255, 0.1);
-  border-radius: 10px;
-  padding: 1.5rem;
-  margin-bottom: 2rem;
-  backdrop-filter: blur(10px);
-}
-
-.weather-header {
-  margin-bottom: 1.5rem;
-  text-align: center;
-}
-
-.weather-header h2 {
-  font-size: 1.8rem;
-  margin-bottom: 0.5rem;
-}
-
-.weather-main {
-  display: flex;
-  justify-content: space-around;
-  align-items: center;
-  margin-bottom: 1.5rem;
-  flex-wrap: wrap;
-  gap: 1rem;
-}
-
-.weather-temp h1 {
-  font-size: 3.5rem;
-  margin-bottom: 0.5rem;
-}
-
-.weather-condition {
-  text-align: center;
-}
-
-.weather-condition p {
-  text-transform: capitalize;
-  margin-top: 0.5rem;
-}
-
-.weather-details {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
-  gap: 1rem;
-}
-
-.detail-item {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 0.5rem;
-}
-
-.detail-item span:first-child {
-  font-size: 0.9rem;
-  opacity: 0.8;
-}
-
-.detail-item span:last-child {
-  font-weight: bold;
-}
-
-/* Forecast */
-.forecast-container {
-  background-color: rgba(255, 255, 255, 0.1);
-  border-radius: 10px;
-  padding: 1.5rem;
-  backdrop-filter: blur(10px);
-}
-
-.forecast-container h3 {
-  text-align: center;
-  margin-bottom: 1.5rem;
-  font-size: 1.5rem;
-}
-
-.forecast-items {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
-  gap: 1rem;
-}
-
-.forecast-item {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  padding: 1rem;
-  background-color: rgba(255, 255, 255, 0.1);
-  border-radius: 10px;
-}
-
-.forecast-date {
-  font-weight: bold;
-  margin-bottom: 0.5rem;
-}
-
-.forecast-temp {
-  font-weight: bold;
-  font-size: 1.2rem;
-  margin: 0.5rem 0;
-}
-
-.forecast-desc {
-  text-transform: capitalize;
-  font-size: 0.9rem;
-  text-align: center;
-}
-
-/* Loading Spinner */
-.loading-container {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  min-height: 300px;
-  gap: 1rem;
-}
-
-/* Error Message */
 .error-message {
-  background-color: rgba(255, 0, 0, 0.2);
+  background: rgba(255, 50, 50, 0.2);
   color: white;
   padding: 1rem;
-  border-radius: 4px;
+  border-radius: 10px;
   margin-bottom: 1rem;
-  text-align: center;
+  border: 1px solid rgba(255, 100, 100, 0.3);
 }
 
-/* Responsive Adjustments */
-@media (max-width: 600px) {
+.forecast-container {
+  margin-top: 2rem;
+  overflow: hidden;
+}
+
+@media (max-width: 768px) {
+  .container {
+    padding: 1rem;
+  }
+  
+  .app-title {
+    font-size: 2.2rem;
+  }
+  
   .controls {
     flex-direction: column;
-    align-items: stretch;
-  }
-  
-  .search-container, form {
-    width: 100%;
-  }
-  
-  .search-input {
-    flex: 1;
-  }
-  
-  .toggle-container {
-    justify-content: center;
-  }
-  
-  .weather-main {
-    flex-direction: column;
-    text-align: center;
   }
 }
